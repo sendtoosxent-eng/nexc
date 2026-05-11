@@ -3,8 +3,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import CustomSelect from "./CustomSelect";
 import CategoryDropdown from "./CategoryDropdown";
-import GenderDropdown from "./GenderDropdown";
-import SizeDropdown from "./SizeDropdown";
 import ColorsDropdwon from "./ColorsDropdwon";
 import PriceDropdown from "./PriceDropdown";
 import shopData from "../Shop/shopData";
@@ -98,8 +96,8 @@ const ShopWithSidebar = () => {
                     setSelectedCategory={setSelectedCategory} 
                   />
                   
-                  <GenderDropdown genders={[]} />
-                  <SizeDropdown />
+                  
+                  
                   <ColorsDropdwon />
                   <PriceDropdown />
                 </div>

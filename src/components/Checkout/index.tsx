@@ -9,6 +9,7 @@ import PaymentMethod from "./PaymentMethod";
 import Coupon from "./Coupon";
 import Billing from "./Billing";
 
+
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
@@ -70,66 +71,81 @@ const Checkout = () => {
   };
 
   // PROCESS ORDER
-  const handleCheckout = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
+const handleCheckout = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
 
-    if (cartItems.length === 0) {
-      alert("Your cart is empty");
-      return;
+  if (cartItems.length === 0) {
+    alert("Your cart is empty");
+    return;
+  }
+
+  if (!user) {
+    alert("Please login first");
+    router.push("/signin");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    // ORDER DATA
+    const orderData = {
+      user_id: user.id,
+      customer_name: billingData.fullName,
+      customer_email: billingData.email,
+      phone: billingData.phone,
+      country: billingData.country,
+      city: billingData.city,
+      address: billingData.address,
+      notes: billingData.notes,
+      payment_method: billingData.paymentMethod,
+      total: totalPrice,
+      status: "Pending",
+      items: cartItems,
+    };
+
+    // SEND TO API
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      alert("Order placed successfully!");
+
+      // SAVE ORDER DETAILS
+      localStorage.setItem(
+        "lastOrder",
+        JSON.stringify({
+          orderId: data.orderId,
+          total: totalPrice,
+          status: "Pending",
+        })
+      );
+
+      // CLEAR CART
+      localStorage.removeItem("cartItems");
+
+      // REDIRECT TO DASHBOARD
+      router.push("/dashboard");
+    } else {
+      alert(data.message || "Failed to place order");
     }
+  } catch (error) {
+    console.log(error);
 
-    try {
-      setLoading(true);
-
-      // ORDER DATA
-      const orderData = {
-        user_id: user.id,
-        customer_name: billingData.fullName,
-        customer_email: billingData.email,
-        phone: billingData.phone,
-        country: billingData.country,
-        city: billingData.city,
-        address: billingData.address,
-        notes: billingData.notes,
-        payment_method: billingData.paymentMethod,
-        total: totalPrice,
-        status: "Pending",
-        items: cartItems,
-      };
-
-      // SEND TO API
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Order placed successfully!");
-
-        // CLEAR CART
-        localStorage.removeItem("cartItems");
-
-        // REDIRECT
-        router.push("/account");
-      } else {
-        alert(data.message || "Failed to place order");
-      }
-    } catch (error) {
-      console.log(error);
-
-      alert("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+    alert("Something went wrong while processing your order");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <>
       <Breadcrumb title={"Checkout"} pages={["checkout"]} />
@@ -318,7 +334,7 @@ const Checkout = () => {
 
                 {/* SHIPPING METHOD */}
                 <ShippingMethod />
-
+                 
                 {/* PAYMENT */}
                 <PaymentMethod />
 

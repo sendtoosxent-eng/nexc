@@ -94,14 +94,14 @@ const HeroCarousal = () => {
                   <div className="flex flex-col items-center gap-4 sm:flex-row lg:items-start">
                     <a
                       href="#"
-                      className="rounded-xl bg-sky-400 px-8 py-4 text-sm font-semibold text-black transition duration-300 hover:scale-105 hover:bg-sky-300"
+                      className="rounded-xl bg-blue px-8 py-4 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-sky-300"
                     >
                       Shop Now
                     </a>
 
                     <a
-                      href="#"
-                      className="rounded-xl border border-sky-400/40 bg-white/5 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition duration-300 hover:bg-sky-400 hover:text-black"
+                      href="/signin"
+                      className="rounded-xl border border-sky-400/40 bg-white/5 px-8 py-4 text-sm font-semibold text-blue backdrop-blur-sm transition duration-300 hover:bg-sky-400 hover:text-black"
                     >
                       Explore More
                     </a>

@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import { Product } from "@/types/product";
 
@@ -5,18 +6,18 @@ type InitialState = {
   value: Product;
 };
 
-const initialState = {
+const initialState: InitialState = {
   value: {
     title: "",
     reviews: 0,
     price: 0,
     discountedPrice: 0,
-    img: "",
-    images: [],
+    images: [], //  keep this if Product has images
     id: 0,
-    imgs: { thumbnails: [], previews: [] },
+    imgs: { thumbnails: [], previews: [] }, //  correct field
+    category: "", // optional, can be omitted if you prefer
   },
-} as InitialState;
+};
 
 export const productDetails = createSlice({
   name: "productDetails",

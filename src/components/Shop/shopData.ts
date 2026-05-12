@@ -18,6 +18,7 @@ const shopData: Product[] = [
         "/images/products/download (1)-Photoroom.png",
       ],
     },
+    images: [], // ✅ added
   },
   {
     title: "iPhone 17 Pro Max , 6/512GB",
@@ -36,6 +37,7 @@ const shopData: Product[] = [
         "/images/products/17PROMAX-BLACK.png",
       ],
     },
+    images: [],
   },
   {
     title: "iPhone 15 Pro Max , 8/256GB",
@@ -54,6 +56,7 @@ const shopData: Product[] = [
         "/images/products/download-Photoroom.png",
       ],
     },
+    images: [],
   },
   {
     title: "iphone 12, 8/256GB",
@@ -72,6 +75,7 @@ const shopData: Product[] = [
         "/images/products/11.png",
       ],
     },
+    images: [],
   },
   {
     title: "Apple Watch Ultra",
@@ -90,6 +94,7 @@ const shopData: Product[] = [
         "/images/products/product-5-bg-2.png",
       ],
     },
+    images: [],
   },
   {
     title: "iphone 11 , 4/128GB",
@@ -108,6 +113,7 @@ const shopData: Product[] = [
         "/images/products/11.png",
       ],
     },
+    images: [],
   },
   {
     title: "iPhone 17 Pro 6/512GB",
@@ -126,6 +132,7 @@ const shopData: Product[] = [
         "/images/products/download (4)-Photoroom.png",
       ],
     },
+    images: [],
   },
   {
     title: "iphone 13  , 8/256GB",
@@ -144,6 +151,7 @@ const shopData: Product[] = [
         "/images/products/122.png",
       ],
     },
+    images: [],
   },
   {
     title: "Google Pixel 10 , 8/256GB",
@@ -161,7 +169,8 @@ const shopData: Product[] = [
         "/images/products/download(5)-Photoroom.png",
         "/images/products/Google Pixel 10 Pro - Unlocked Android Smartphone with Gemini, Triple Rear Camera System, 24+ Hour Battery, and 6_3_-Photoroom.png",
       ],
-    },    
+    },
+    images: [],
   },
   {
     title: "iPhone 14 Pro Max , 8/256GB",
@@ -180,7 +189,8 @@ const shopData: Product[] = [
         "/images/products/download-Photoroom.png",
       ],
     },
-  }
+    images: [],
+  },
 ];
 
 export default shopData;

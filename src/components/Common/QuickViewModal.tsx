@@ -303,8 +303,7 @@ const QuickViewModal = () => {
               </div>
 
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has.
+                 All Colours, All Storages | Brand New & Premium UK Used || All 100% authentic and 1 year warranty on each phone you purchase
               </p>
 
               <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">

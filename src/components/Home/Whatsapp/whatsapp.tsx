@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 export default function Whatsapp() {
-  // WhatsApp setup
+  
   const whatsappNumber = "256740442029";
 
   const message = encodeURIComponent(

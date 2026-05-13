@@ -10,5 +10,5 @@ export interface Product {
     thumbnails: string[];
     previews: string[];
   };
-  category?: string; // 👈 optional
+  category?: string; //  optional
 }

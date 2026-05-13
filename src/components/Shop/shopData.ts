@@ -18,15 +18,15 @@ const shopData: Product[] = [
         "/images/products/download (1)-Photoroom.png",
       ],
     },
-    images: [], // ✅ added
+    images: [], 
   },
   {
-    title: "iPhone 17 Pro Max , 6/512GB",
+    title: "17 Pro Max 256GB | Non Active",
     category: "Phone",
     reviews: 5,
-    price: 899.0,
-    discountedPrice: 99.0,
-    id: 2,
+    price: 5750000.0,
+    discountedPrice: 5550000.0,
+    id: 9,
     imgs: {
       thumbnails: [
         "/images/products/download (2)-Photoroom.png",
@@ -163,7 +163,7 @@ const shopData: Product[] = [
     imgs: {
       thumbnails: [
         "/images/products/download(5)-Photoroom.png",
-        "/images/products/Google Pixel 10 Pro - Unlocked Android Smartphone with Gemini, Triple Rear Camera System, 24+ Hour Battery, and 6_3_-Photoroom.png",
+        "/images/products/Google Pixel 10 Pro - Unlocked Android Smartphone with Gemini, Triple Rear Camera System, 24+ Hour Battery, and 6_3-Photoroom.png",
       ],
       previews: [
         "/images/products/download(5)-Photoroom.png",
@@ -178,10 +178,105 @@ const shopData: Product[] = [
     reviews: 5,
     price: 59.0,
     discountedPrice: 29.0,
-    id: 10,
+    id: 2,
     imgs: {
       thumbnails: [
-        "/images/products/iPhone 14 Pro and 14 Pro Max_#Apple #iPhone #iPhone14-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+      previews: [
+        "/images/products/THOMO COMPATIBLE Shockproof Microfiber Resistant-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+    },
+    images: [],
+  },
+  {
+    title: "17 Pro 256GB | Non Active",
+    category: "Phone",
+    reviews: 5,
+    price: 5400000.0,
+    discountedPrice: 5200000.0,
+    id: 2,
+    imgs: {
+      thumbnails: [
+        "/images/products/download-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+      previews: [
+        "/images/products/THOMO COMPATIBLE Shockproof Microfiber Resistant-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+    },
+    images: [],
+  },
+  {
+    title: "17 Pro 512GB | Non Active",
+    category: "Phone",
+    reviews: 5,
+    price: 65000000.0,
+    discountedPrice: 6300000.0,
+    id: 2,
+    imgs: {
+      thumbnails: [
+        "/images/products/download-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+      previews: [
+        "/images/products/THOMO COMPATIBLE Shockproof Microfiber Resistant-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+    },
+    images: [],
+  },
+    {
+    title: "17 Pro Max 512GB | Active",
+    category: "Phone",
+    reviews: 5,
+    price: 5900000.0,
+    discountedPrice: 5700000.0,
+    id: 13,
+    imgs: {
+      thumbnails: [
+        "/images/products/download-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+      previews: [
+        "/images/products/THOMO COMPATIBLE Shockproof Microfiber Resistant-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+    },
+    images: [],
+  },
+    {
+    title: "iphone 17 Pro 256GB | Active",
+    category: "Phone",
+    reviews: 5,
+    price: 4800000.0,
+    discountedPrice: 4900000.0,
+    id: 14,
+    imgs: {
+      thumbnails: [
+        "/images/products/download-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+      previews: [
+        "/images/products/THOMO COMPATIBLE Shockproof Microfiber Resistant-Photoroom.png",
+        "/images/products/download-Photoroom.png",
+      ],
+    },
+    images: [],
+  },
+    {
+    title: "iphone 17  256GB | Non Active",
+    category: "Phone",
+    reviews: 5,
+    price: 3200000.0,
+    discountedPrice: 3100000.0,
+    id: 2,
+    imgs: {
+      thumbnails: [
+        "/images/products/iphone-17Pro-Photoroom.png",
         "/images/products/download-Photoroom.png",
       ],
       previews: [

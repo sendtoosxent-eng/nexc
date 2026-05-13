@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Nexcell Gadgets | Tech For Next Gen",
-  description: "This is Home for NextCommerce Template",
+  description: "This is nexcell gadgets store",
   // other metadata
 };
 

@@ -70,7 +70,7 @@ const HeroCarousal = () => {
                       {slide.discount}
                     </span>
 
-                    <span className="text-sm uppercase tracking-widest text-blue/80">
+                    <span className="text-sm uppercase tracking-widest text-pacific/80">
                       Special Offer
                     </span>
                   </div>
@@ -81,7 +81,7 @@ const HeroCarousal = () => {
                   </p>
 
                   {/* Title */}
-                  <h1 className="mb-6 text-4xl font-black leading-tight text-blue sm:text-5xl lg:text-6xl">
+                  <h1 className="mb-6 text-4xl font-black leading-tight text-pacific sm:text-5xl lg:text-6xl">
                     {slide.title}
                   </h1>
 
@@ -94,14 +94,14 @@ const HeroCarousal = () => {
                   <div className="flex flex-col items-center gap-4 sm:flex-row lg:items-start">
                     <a
                       href="#"
-                      className="rounded-xl bg-blue px-8 py-4 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-sky-300"
+                      className="rounded-xl bg-pacific px-8 py-4 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-sky-300"
                     >
                       Shop Now
                     </a>
 
                     <a
                       href="/signin"
-                      className="rounded-xl border border-sky-400/40 bg-white/5 px-8 py-4 text-sm font-semibold text-blue backdrop-blur-sm transition duration-300 hover:bg-sky-400 hover:text-black"
+                      className="rounded-xl border border-sky-400/40 bg-white/5 px-8 py-4 text-sm font-semibold text-pacific backdrop-blur-sm transition duration-300 hover:bg-sky-400 hover:text-black"
                     >
                       Explore More
                     </a>

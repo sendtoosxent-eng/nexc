@@ -96,6 +96,9 @@ const config: Config = {
         DEFAULT: "#F27430",
         dark: "#E1580E",
       },
+      pacific: {
+        DEFAULT: "#2596BE",
+      },
     },
     screens: {
       xsm: "375px",

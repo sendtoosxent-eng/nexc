@@ -81,7 +81,7 @@ const Footer = () => {
                       fill="#3C50E0"
                     />
                   </svg>
-                  support@nexcellgadgets.tech
+                  support@nexcellgadgets.ug
                 </a>
               </li>
             </ul>

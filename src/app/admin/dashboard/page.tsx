@@ -1,96 +1,277 @@
 "use client";
-import React, { useEffect, useState } from "react";
 
-const AdminDashboard = () => {
-  const [orders, setOrders] = useState([]);
-  const [stats, setStats] = useState({ total: 0, users: 0, approved: 0, pending: 0, declined: 0 });
+import React, { useEffect, useState } from "react";
+import {
+  ShoppingBag,
+  CheckCircle,
+  Clock,
+  Wallet,
+} from "lucide-react";
+
+const DashboardPage = () => {
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
+    fetchOrders();
   }, []);
 
-  const fetchData = async () => {
-    const res = await fetch("/api/admin/dashboard-data");
-    const data = await res.json();
-    setOrders(data.orders);
-    setStats(data.stats);
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch("/api/admin/orders");
+
+      const data = await res.json();
+
+      setOrders(data.orders);
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const updateStatus = async (orderId: number, newStatus: string) => {
-    await fetch(`/api/admin/orders/${orderId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ status: newStatus }),
-    });
-    fetchData(); // Refresh data
+  const updateStatus = async (
+    orderId: number,
+    status: string
+  ) => {
+    try {
+      await fetch("/api/admin/update-order-status", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          orderId,
+          status,
+        }),
+      });
+
+      fetchOrders();
+
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const totalRevenue = orders.reduce(
+    (acc, item) => acc + Number(item.total),
+    0
+  );
+
+  const pendingOrders = orders.filter(
+    (o) => o.status === "Pending"
+  ).length;
+
+  const approvedOrders = orders.filter(
+    (o) => o.status === "Approved"
+  ).length;
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <header className="flex justify-between items-center mb-10">
-        <h1 className="text-3xl font-bold text-slate-800">Admin Command Center</h1>
-        <button onClick={() => {/* Open Profile Edit Modal */}} className="bg-white border p-2 rounded shadow-sm">
-          Edit Profile
-        </button>
-      </header>
+    <section className="min-h-screen bg-[#050816] text-white p-6">
+      <div className="max-w-7xl mx-auto">
 
-      {/* Statistics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
-        <StatCard title="Total Orders" value={stats.total} color="blue" />
-        <StatCard title="New Users" value={stats.users} color="purple" />
-        <StatCard title="Approved" value={stats.approved} color="green" />
-        <StatCard title="Pending" value={stats.pending} color="amber" />
-        <StatCard title="Declined" value={stats.declined} color="red" />
-      </div>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold mb-2">
+            Nexcell Admin Dashboard
+          </h1>
 
-      {/* Orders Table */}
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-        <table className="w-full text-left">
-          <thead className="bg-gray-100 text-gray-600 uppercase text-sm">
-            <tr>
-              <th className="p-4">Order ID</th>
-              <th className="p-4">Customer</th>
-              <th className="p-4">Status</th>
-              <th className="p-4 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order: any) => (
-              <tr key={order.id} className="border-t hover:bg-gray-50">
-                <td className="p-4 font-medium">#{order.id}</td>
-                <td className="p-4">
-                  <div className="font-bold">{order.customer_name}</div>
-                  <div className="text-xs text-gray-500">{order.customer_email}</div>
-                </td>
-                <td className="p-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusStyles[order.status]}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="p-4 flex justify-center gap-2">
-                  <button onClick={() => updateStatus(order.id, "Approved")} className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Approve</button>
-                  <button onClick={() => updateStatus(order.id, "Declined")} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Decline</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <p className="text-gray-400">
+            Manage orders and customers
+          </p>
+        </div>
+
+        {/* CARDS */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+
+          <div className="bg-[#0f172a] rounded-2xl p-6 border border-sky-500/20">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">
+                  Total Orders
+                </p>
+
+                <h2 className="text-3xl font-bold mt-2">
+                  {orders.length}
+                </h2>
+              </div>
+
+              <ShoppingBag className="text-sky-400" size={40} />
+            </div>
+          </div>
+
+          <div className="bg-[#0f172a] rounded-2xl p-6 border border-yellow-500/20">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">
+                  Pending
+                </p>
+
+                <h2 className="text-3xl font-bold mt-2">
+                  {pendingOrders}
+                </h2>
+              </div>
+
+              <Clock className="text-yellow-400" size={40} />
+            </div>
+          </div>
+
+          <div className="bg-[#0f172a] rounded-2xl p-6 border border-green-500/20">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">
+                  Approved
+                </p>
+
+                <h2 className="text-3xl font-bold mt-2">
+                  {approvedOrders}
+                </h2>
+              </div>
+
+              <CheckCircle
+                className="text-green-400"
+                size={40}
+              />
+            </div>
+          </div>
+
+          <div className="bg-[#0f172a] rounded-2xl p-6 border border-sky-500/20">
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-gray-400">
+                  Revenue
+                </p>
+
+                <h2 className="text-3xl font-bold mt-2">
+                  UGX {totalRevenue.toLocaleString()}
+                </h2>
+              </div>
+
+              <Wallet className="text-sky-400" size={40} />
+            </div>
+          </div>
+        </div>
+
+        {/* TABLE */}
+
+        <div className="bg-[#0f172a] rounded-3xl overflow-hidden border border-white/10">
+
+          <div className="overflow-x-auto">
+
+            <table className="w-full">
+              <thead className="bg-sky-500 text-black">
+                <tr>
+                  <th className="text-left p-4">
+                    Order
+                  </th>
+
+                  <th className="text-left p-4">
+                    Customer
+                  </th>
+
+                  <th className="text-left p-4">
+                    Total
+                  </th>
+
+                  <th className="text-left p-4">
+                    Status
+                  </th>
+
+                  <th className="text-left p-4">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {orders.map((order) => (
+                  <tr
+                    key={order.id}
+                    className="border-b border-white/10"
+                  >
+                    <td className="p-4">
+                      #{order.id}
+                    </td>
+
+                    <td className="p-4">
+                      <div>
+                        <h3 className="font-semibold">
+                          {order.customer_name}
+                        </h3>
+
+                        <p className="text-sm text-gray-400">
+                          {order.customer_email}
+                        </p>
+                      </div>
+                    </td>
+
+                    <td className="p-4">
+                      UGX {Number(order.total).toLocaleString()}
+                    </td>
+
+                    <td className="p-4">
+                      <span
+                        className={`
+                          px-3 py-1 rounded-full text-sm font-medium
+                          ${
+                            order.status === "Approved"
+                              ? "bg-green-500/20 text-green-400"
+                              : order.status === "Delivered"
+                              ? "bg-blue-500/20 text-blue-400"
+                              : order.status === "Cancelled"
+                              ? "bg-red-500/20 text-red-400"
+                              : "bg-yellow-500/20 text-yellow-400"
+                          }
+                        `}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+
+                    <td className="p-4">
+                      <select
+                        value={order.status}
+                        onChange={(e) =>
+                          updateStatus(
+                            order.id,
+                            e.target.value
+                          )
+                        }
+                        className="
+                          bg-black
+                          border
+                          border-sky-500/30
+                          rounded-lg
+                          px-4
+                          py-2
+                          outline-none
+                        "
+                      >
+                        <option>Pending</option>
+                        <option>Approved</option>
+                        <option>Delivered</option>
+                        <option>Cancelled</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {!loading && orders.length === 0 && (
+              <div className="p-10 text-center text-gray-400">
+                No orders found
+              </div>
+            )}
+
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-// Sub-components for cleaner code
-const StatCard = ({ title, value, color }: any) => (
-  <div className={`p-6 bg-white border-l-4 border-${color}-500 rounded-lg shadow-sm`}>
-    <p className="text-sm text-gray-500 font-medium uppercase">{title}</p>
-    <p className="text-2xl font-bold text-gray-800">{value}</p>
-  </div>
-);
-
-const statusStyles: any = {
-  Approved: "bg-green-100 text-green-700",
-  Pending: "bg-amber-100 text-amber-700",
-  Declined: "bg-red-100 text-red-700",
-};
-
-export default AdminDashboard;
+export default DashboardPage;

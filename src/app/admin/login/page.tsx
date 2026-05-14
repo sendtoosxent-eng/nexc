@@ -1,89 +1,200 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  ShieldCheck,
+  Mail,
+  Lock,
+} from "lucide-react";
 
-export default function AdminLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+export default function AdminLoginPage() {
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async (
+    e: React.FormEvent
+  ) => {
     e.preventDefault();
+
     setLoading(true);
-    setError("");
 
     try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "/api/admin/login",
+        {
+          method: "POST",
 
-      const data = await res.json();
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
 
-      if (res.ok) {
-        // Success! Redirect to dashboard
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem(
+          "admin",
+          JSON.stringify(data.admin)
+        );
+
         router.push("/admin/dashboard");
-        router.refresh(); // Ensure server components update
       } else {
-        setError(data.message || "Invalid Credentials");
+        alert(data.message);
       }
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+
+    } catch (error) {
+      console.log(error);
+
+      alert("Something went wrong");
     }
+
+    setLoading(false);
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">Admin Login</h2>
-          <p className="text-gray-500 mt-2">Access the management panel</p>
+    <section className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-500 to-black flex items-center justify-center px-4">
+
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-8">
+
+        <div className="flex justify-center mb-6">
+          <div className="bg-sky-500 p-4 rounded-2xl shadow-lg">
+            <ShieldCheck
+              className="text-white"
+              size={38}
+            />
+          </div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm border border-red-100">
-              {error}
+        <h1 className="text-3xl font-bold text-white text-center">
+          Admin Login
+        </h1>
+
+        <p className="text-white/70 text-center mt-2 mb-8">
+          Sign in to manage your store
+        </p>
+
+        <form
+          onSubmit={handleLogin}
+          className="space-y-6"
+        >
+
+          <div>
+            <label className="text-white text-sm mb-2 block">
+              Email Address
+            </label>
+
+            <div className="relative">
+              <Mail
+                className="absolute left-4 top-3.5 text-sky-200"
+                size={18}
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="admin@nexcell.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="
+                  w-full
+                  bg-white/10
+                  border border-white/20
+                  rounded-xl
+                  py-3
+                  pl-12
+                  pr-4
+                  text-white
+                  placeholder:text-white/50
+                  outline-none
+                  focus:border-sky-400
+                  focus:ring-2
+                  focus:ring-sky-400/30
+                "
+              />
             </div>
-          )}
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input 
-              required
-              type="email" 
-              placeholder="admin@example.com" 
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-              onChange={(e) => setEmail(e.target.value)} 
-            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input 
-              required
-              type="password" 
-              placeholder="••••••••" 
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-              onChange={(e) => setPassword(e.target.value)} 
-            />
+            <label className="text-white text-sm mb-2 block">
+              Password
+            </label>
+
+            <div className="relative">
+              <Lock
+                className="absolute left-4 top-3.5 text-sky-200"
+                size={18}
+              />
+
+              <input
+                type="password"
+                name="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="
+                  w-full
+                  bg-white/10
+                  border border-white/20
+                  rounded-xl
+                  py-3
+                  pl-12
+                  pr-4
+                  text-white
+                  placeholder:text-white/50
+                  outline-none
+                  focus:border-sky-400
+                  focus:ring-2
+                  focus:ring-sky-400/30
+                "
+              />
+            </div>
           </div>
 
-          <button 
+          <button
+            type="submit"
             disabled={loading}
-            className={`w-full p-3 rounded-lg font-bold text-white transition-all ${
-              loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-            }`}
+            className="
+              w-full
+              bg-sky-500
+              hover:bg-sky-600
+              text-white
+              font-semibold
+              py-3
+              rounded-xl
+              transition-all
+              duration-300
+              shadow-lg
+            "
           >
-            {loading ? "Verifying..." : "Login to Dashboard"}
+            {loading
+              ? "Signing In..."
+              : "Login"}
           </button>
+
         </form>
       </div>
-    </div>
+    </section>
   );
 }

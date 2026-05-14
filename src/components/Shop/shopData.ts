@@ -40,11 +40,11 @@ const shopData: Product[] = [
     images: [],
   },
   {
-    title: "iPhone 15 Pro Max , 8/256GB",
+    title: "iphone 15 15 ProMax	512GB.",
     category: "Phone",
-    reviews: 5,
-    price: 59.0,
-    discountedPrice: 29.0,
+    reviews: 4,
+    price: 3400000,
+    discountedPrice: 3100000,
     id: 3,
     imgs: {
       thumbnails: [
@@ -59,11 +59,11 @@ const shopData: Product[] = [
     images: [],
   },
   {
-    title: "iphone 12, 8/256GB",
+    title: "iphone 15 ProMax, 256GB",
     category: "Phone",
     reviews: 6,
-    price: 59.0,
-    discountedPrice: 29.0,
+    price: 3000000,
+    discountedPrice: 2900000,
     id: 4,
     imgs: {
       thumbnails: [
